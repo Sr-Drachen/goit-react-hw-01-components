@@ -1,40 +1,39 @@
-import Section from "./components/Section";
-import SocialProfile from "./components/Profile";
-import Statistics from "./components/Statistics";
-import FriendList from "./components/FriendList";
-import TransactionHistory from "./components/TransactionHistory";
-import user from "./json/user";
-import data from "./json/data";
-import friends from "./json/friends";
-import transactions from "./json/transactions";
+import user from './json/user.json';
+import data from './json/data.json';
+import friends from './json/friends.json';
+import transactions from './json/transactions.json';
 
-export default function App() {
+import { Profile } from './components/Profile';
+import { Statistics } from './components/Statistics';
+import { FriendList } from './components/FriendList';
+import { TransactionHistory } from './components/TransactionHistory';
+
+const rootStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '40px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: 40,
+  color: '#010101',
+};
+
+//Основний компонент App
+export const App = () => {
   return (
-    <div>
-      <Section title={"1° Social network profile'"}>
-        <SocialProfile
-          username={user.username}
-          tag={user.tag}
-          location={user.location}
-          avatar={user.avatar}
-          stats={user.stats}
-        />
-      </Section>
-
-      <Section title={"2° Statistics section"}>
-        <Statistics title="Upload stats" stats={data} />
-      </Section>
-      <Section>
-        <Statistics stats={data} />
-      </Section>
-
-      <Section title={"3° Friend list"}>
-        <FriendList friends={friends} />
-      </Section>
-
-      <Section title={"4° Transaction history"}>
-        <TransactionHistory transactions={transactions} />
-      </Section>
+    <div style={rootStyles}>
+      <Profile
+        username={user.username}
+        tag={user.tag}
+        location={user.location}
+        avatar={user.avatar}
+        followers={user.stats.followers}
+        views={user.stats.views}
+        likes={user.stats.likes}
+      />
+      <Statistics title="Upload stats" stats={data} />
+      <FriendList friends={friends} />
+      <TransactionHistory items={transactions} />
     </div>
   );
-}
+};
